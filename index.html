@@ -3,6 +3,11 @@
 <style>
 
 /* CSS goes here. */
+.subunit.SCT { fill: #ddc; }
+.subunit.WLS { fill: #cdd; }
+.subunit.NIR { fill: #cdc; }
+.subunit.ENG { fill: #dcd; }
+.subunit.IRL { display: none; }
 
 </style>
 <body>
@@ -36,7 +41,16 @@ d3.json("uk.json", function(error, uk) {
 	var subunits = topojson.feature(uk, uk.objects.subunits);
 
 	svg.append("path")
-	    .datum(subunits)
+		.datum(subunits)
+		.attr("d", path);
+
+	    console.log(uk)
+	    console.log(uk.objects.subunits)
+
+	svg.selectAll(".subunit")
+	    .data(topojson.feature(uk, uk.objects.subunits).features)
+	  .enter().append("path")
+	    .attr("class", function(d) { return "subunit " + d.id; })
 	    .attr("d", path);
    
 
